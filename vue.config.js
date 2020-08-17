@@ -51,8 +51,7 @@ module.exports = {
       }
     }
   },
-  chainWebpack: (config) => {
-    config.resolve.alias.set('@', resolve('src'));
+  chainWebpack: config => {
       // return {
       //   plugins: [new CompressionPlugin({
       //     test: productionGzipExtensions,
@@ -60,7 +59,7 @@ module.exports = {
       //     deleteOriginalAssets: true
       //   })]
       // }
-        config.plugin('compression')
+        config.plugin('compressionPlugin')
         .use(CompressionPlugin, [
           {
             algorithm: 'gzip',
@@ -161,24 +160,5 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
-
-      
-    if (process.env.NODE_ENV === 'production') {
-      return {
-         plugins: [new CompressionPlugin({
-           test: productionGzipExtensions,
-           threshold: 10240,
-           deleteOriginalAssets: true
-         })]
-       }
-     }else{
-      return {
-         plugins: [new CompressionPlugin({
-           test: productionGzipExtensions,
-           threshold: 10240,
-           deleteOriginalAssets: true
-         })]
-       }
-     }
   }
 }
